@@ -1,11 +1,162 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:quit_for_good/controllers/donation_controller.dart';
+import 'package:quit_for_good/models/Donation_payment_model.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-class PaymentOption extends StatelessWidget {
-  const PaymentOption({super.key});
+class PaymentOption extends StatefulWidget {
+  final String nameoftitle;
+  final String phonenumb;
+  final double orderval;
+  final String desc;
+  const PaymentOption(
+      {super.key,
+      required this.nameoftitle,
+      required this.phonenumb,
+      required this.orderval,
+      required this.desc});
+
+  @override
+  State<PaymentOption> createState() => _PaymentOptionState();
+}
+
+class _PaymentOptionState extends State<PaymentOption> {
+  final _razorpay = Razorpay();
+  var order_id ;
+  String getCustomUniqueId() {
+    const String pushChars =
+        '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+    int lastPushTime = 0;
+    List lastRandChars = [];
+    int now = DateTime.now().millisecondsSinceEpoch;
+    bool duplicateTime = (now == lastPushTime);
+    lastPushTime = now;
+    List timeStampChars = List<String>.filled(8, '0');
+    for (int i = 7; i >= 0; i--) {
+      timeStampChars[i] = pushChars[now % 64];
+      now = (now / 64).floor();
+    }
+    if (now != 0) {
+      print("Id should be unique");
+    }
+    String uniqueId = timeStampChars.join('');
+    if (!duplicateTime) {
+      for (int i = 0; i < 12; i++) {
+        lastRandChars.add((Random().nextDouble() * 64).floor());
+      }
+    } else {
+      int i = 0;
+      for (int i = 11; i >= 0 && lastRandChars[i] == 63; i--) {
+        lastRandChars[i] = 0;
+      }
+      lastRandChars[i]++;
+    }
+    for (int i = 0; i < 8; i++) {
+      uniqueId += pushChars[lastRandChars[i]];
+    }
+    return uniqueId;
+  }
+
+  void initState() {
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSucess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+    super.initState();
+  }
+
+  void _handlePaymentSucess(PaymentSuccessResponse response) async {
+    DonationPaymentController controller = DonationPaymentController();
+    DonationPaymentModel model  = DonationPaymentModel(
+      ngoname: widget.nameoftitle,
+      typeofpayment: "online",
+      amttrfs: widget.orderval.toString(),
+      time: DateTime.now().toString(),
+      totalamttrs: widget.orderval.toString(),
+      trsid: getCustomUniqueId()
+    );
+   await controller.addUserInfo(model);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print("Payment Failed");
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    print("");
+  }
+
+  void payonline() {
+    var name = widget.nameoftitle;
+    var phonenumber = widget.phonenumb;
+    order_id = getCustomUniqueId();
+    var options = {
+      'key': 'rzp_test_FBmQayuj43JfRI',
+      'amount': widget.orderval * 100.0,
+      'order_id': order_id,
+      'name': name,
+      'description': widget.desc,
+      'prefill': {'contact': phonenumber, 'email': 'lci2021014@iiitl.ac.in'}
+    };
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Column(
+        children: [
+          paythrgh("Pay Via QR Code", () {}),
+          paythrgh("Pay Online", () {
+            var name = widget.nameoftitle;
+            var phonenumber = widget.phonenumb;
+            var options = {
+              'key': 'rzp_test_FBmQayuj43JfRI',
+              'amount': widget.orderval * 100.0,
+              'name': name,
+              'description': widget.desc,
+              'prefill': {
+                'contact': phonenumber,
+                'email': 'lci2021014@iiitl.ac.in'
+              }
+            };
+            try  {
+              _razorpay.open(options);
+            } catch (e) {
+              debugPrint(e.toString());
+            }
+          })
+        ],
+      ),
+    );
+  }
+
+  Widget paythrgh(String inptxt, Function press) {
+    return InkWell(
+      onTap: press as void Function(),
+      child: Card(
+        child: SizedBox(
+          width: 150.w,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0).w,
+            child: Text(
+              inptxt,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

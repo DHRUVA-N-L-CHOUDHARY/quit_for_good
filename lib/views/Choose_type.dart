@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:quit_for_good/views/Donate_to_social_communites.dart';
+import 'package:quit_for_good/widgets/components/custom_app_bar.dart';
 
 class ChooseTypeScreen extends StatelessWidget {
   const ChooseTypeScreen({super.key});
@@ -11,6 +12,7 @@ class ChooseTypeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: CustomAppBar(title: "Quit for Good",act: false,),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:quit_for_good/views/Chat_screen.dart';
-import 'package:quit_for_good/views/Choose_type.dart';
-import 'package:quit_for_good/views/Splash_screen.dart';
+import 'package:quit_for_good/views/Navigation_screen.dart';
+import 'package:quit_for_good/widgets/components/custom_app_bar.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -41,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: CustomAppBar(title: "Quit for Good", act: false,),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: () async {
               bool isSuccess = await loginWithGoogle();
               if (isSuccess) {
-                Get.offAll(() => ChooseTypeScreen());
+                Get.offAll(() => NavigationScreen(tabIndex: 0,));
               }
             },
             child: Container(

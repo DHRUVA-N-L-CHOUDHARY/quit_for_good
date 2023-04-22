@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quit_for_good/utils/Colors.dart';
 import 'package:quit_for_good/widgets/components/body.dart';
-
-Color kPrimaryColor = Colors.green;
 class ChatsScreen extends StatefulWidget {
   @override
   _ChatsScreenState createState() => _ChatsScreenState();
