@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
         decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage(splash))),
         child: const Text(
-          "QUUIT FOR GOOD",
+          "QUIT FOR GOOD",
           style: TextStyle(
               color: Color.fromRGBO(87, 51, 83, 1),
               fontWeight: FontWeight.bold,

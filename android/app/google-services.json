@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "502955524680",
+    "project_id": "quit-for-good",
+    "storage_bucket": "quit-for-good.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502955524680:android:e49a658d7f888aabdb4e7d",
+        "android_client_info": {
+          "package_name": "com.example.quit_for_good"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502955524680-7fob85p030gmjfj4nkjpr00f8it74lv1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVpjSTSKpvBv7qcH5UnQ3Omg6rdRfXWd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502955524680-7fob85p030gmjfj4nkjpr00f8it74lv1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
