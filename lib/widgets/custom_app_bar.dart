@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:quit_for_good/utils/Colors.dart';
 import 'package:quit_for_good/utils/String.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -10,7 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.green,
+      backgroundColor: kPrimaryColor,
       automaticallyImplyLeading: false,
       leading: act ? IconButton(
         onPressed: () {
@@ -21,24 +23,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.white,
         ),
       )  : Container(),
-      title: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0).w,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-              color: Colors.white,
-              ),
-              child: Image.asset(applogo, height: 40.0,width: 40.0,)),
-          ),
-          Text(
-            title,
-            style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ],
+      title: Text(
+        title.capitalize ?? "Quit For Good",
+        style: TextStyle(
+            color: Colors.white, fontSize: 25, fontWeight: FontWeight.w100, fontFamily: "Brugty"),
       ),
+      centerTitle: true,
       elevation: 0.0,
     );
   }

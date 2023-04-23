@@ -4,6 +4,7 @@ import 'package:quit_for_good/utils/Colors.dart';
 import 'package:quit_for_good/utils/String.dart';
 import 'package:quit_for_good/views/Choose_type.dart';
 import 'package:quit_for_good/views/Profile_screen.dart';
+import 'package:quit_for_good/views/doctors_list_screen.dart';
 import 'package:quit_for_good/views/homepage/screen/home.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -29,7 +30,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
           children: [
             const ChooseTypeScreen(),
             HomeScreen(),
-            const ProfileScreen(),
+            DoctorsListScreen(),
+             ProfileScreen(),
           ],
         ),
       ),
@@ -59,7 +61,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
               label: "Community",
             ),
             _bottomNavigationBarItem(
+              icon: doctor,
               selected: widget.tabIndex == 2 ? true : false,
+              label: "Seek Help",
+            ),
+            _bottomNavigationBarItem(
+              selected: widget.tabIndex == 3 ? true : false,
               icon: profile,
               label: "Profile",
             ),

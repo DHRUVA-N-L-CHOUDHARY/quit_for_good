@@ -7,6 +7,9 @@ import 'package:quit_for_good/firebase_options.dart';
 import 'package:quit_for_good/utils/Colors.dart';
 import 'package:quit_for_good/views/Login_screen.dart';
 import 'package:quit_for_good/views/Navigation_screen.dart';
+import 'package:quit_for_good/views/doctors_list_screen.dart';
+import 'package:quit_for_good/views/enter_details_screen.dart';
+import 'package:quit_for_good/views/request_call_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

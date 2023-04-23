@@ -116,10 +116,10 @@ class _PaymentOptionState extends State<PaymentOption> {
                 "\"Every cigarette you don't smoke is a victory. Celebrate every small step!\"",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(0, 0, 0, 0.51),
+                    fontWeight: FontWeight.w100,
                     fontSize: 20,
-                    fontStyle: FontStyle.italic),
+                    fontFamily: "Brugty"),
               ),
               Image.asset(donatengo,),
             Column(
@@ -152,7 +152,8 @@ class _PaymentOptionState extends State<PaymentOption> {
               style: TextStyle(
                   color: kContrColor,
                   fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                  fontFamily: "Brugty",
+                  fontWeight: FontWeight.w100),
             ),
           ),
         ),

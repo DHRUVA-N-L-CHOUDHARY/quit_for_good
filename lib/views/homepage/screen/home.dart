@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:quit_for_good/controllers/group_controller.dart';
 import 'package:quit_for_good/models/group_details_model.dart';
 import 'package:quit_for_good/utils/Colors.dart';
+import 'package:quit_for_good/views/Login_screen.dart';
 import 'package:quit_for_good/widgets/group_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -68,10 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           backgroundColor: kPrimaryColor,
           title: Text(
-            "Groups",
+            "Community",
             style: TextStyle(
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w100,
+                fontFamily: "Brugty",
                 fontSize: 27.sp),
           )),
       drawer: Drawer(
@@ -134,9 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                         IconButton(
                             onPressed: () async {
-                              // contr.singOut();
+                               FirebaseAuth.instance.signOut();
                               print("signedout");
-                              // Get.offAllNamed(LogInPage.routeName);
+                              Get.offAll(() => LoginScreen());
                             },
                             icon: const Icon(
                               Icons.done,

@@ -54,7 +54,7 @@ class _DonateToSocialCommunitesState extends State<DonateToSocialCommunites> {
               child: Text(
             "Donate to NGO or Social Communities",
             style: TextStyle(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+                color: Color.fromRGBO(0, 0, 0, 0.616), fontSize: 20, fontWeight: FontWeight.w100, fontFamily: "Brugty"),
           )),
           SizedBox(
             height: 20.h,

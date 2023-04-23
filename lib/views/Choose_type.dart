@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:quit_for_good/utils/Colors.dart';
 import 'package:quit_for_good/utils/String.dart';
 import 'package:quit_for_good/views/Donation/donate_to_social_communites.dart';
 import 'package:quit_for_good/views/Transfer_amount_savings_screen.dart';
-import 'package:quit_for_good/widgets/custom_app_bar.dart';
 
 class ChooseTypeScreen extends StatelessWidget {
   const ChooseTypeScreen({super.key});
@@ -15,10 +12,10 @@ class ChooseTypeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Quit for Good",
-        act: false,
-      ),
+      // appBar: CustomAppBar(
+      //   title: "Quit for Good",
+      //   act: false,
+      // ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -26,11 +23,13 @@ class ChooseTypeScreen extends StatelessWidget {
           children: [
             Text(
               "Quit smoking today, start living tomorrow!",
+              textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(131, 0, 0, 0),
+                  fontWeight: FontWeight.w100,
                   fontSize: 20,
-                  fontStyle: FontStyle.italic),
+                  fontFamily: "Brugty",
+                  ),
             ),
             Image.asset(lungssmk, width: 320.w,),
             Column(
@@ -71,7 +70,8 @@ class ChooseTypeScreen extends StatelessWidget {
               style: TextStyle(
                   color: kContrColor,
                   fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                  fontFamily: "Brugty",
+                  fontWeight: FontWeight.w100),
             ),
           ),
         ),

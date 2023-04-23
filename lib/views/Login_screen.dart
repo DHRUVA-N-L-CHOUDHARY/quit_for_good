@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:quit_for_good/utils/Colors.dart';
 import 'package:quit_for_good/utils/String.dart';
+import 'package:quit_for_good/views/enter_details_screen.dart';
 import 'package:quit_for_good/views/homepage/screen/home.dart';
 import 'package:quit_for_good/widgets/custom_app_bar.dart';
 
@@ -40,7 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(title: "Quit for Good", act: false,),
+      // appBar: CustomAppBar(
+      //   title: "Quit for Good",
+      //   act: false,
+      // ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,50 +55,55 @@ class _LoginScreenState extends State<LoginScreen> {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 26,
-              fontWeight: FontWeight.bold,
+              fontFamily: "Brugty",
+              fontWeight: FontWeight.w400,
             ),
           ),
+          Center(child: Image.asset(applogo)),
           const Text(
             'Login to continue',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 22,
+              fontFamily: "Brugty",
               fontWeight: FontWeight.w500,
             ),
           ),
-          Center(
-              child: Image.asset(applogo)),
           GestureDetector(
             onTap: () async {
               bool isSuccess = await loginWithGoogle();
               if (isSuccess) {
-                Get.offAll(HomeScreen());
+                Get.offAll(EnterDetailsScreen());
               }
             },
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.green,
-              ),
-              width: 280.w,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 3.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Image.network(
-                      "https://banner2.cleanpng.com/20180416/xlq/kisspng-g-suite-pearl-river-middle-school-google-software-sign-up-button-5ad4e1a9d11d62.1599053415239008418566.jpg",
-                      height: 60,
-                      width: 60,
-                    ),
-                    Text(
-                      "Sign In with google",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
+            child: Card(
+              elevation: 1.0,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: Colors.black)
+                ),
+                width: 280.w,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 3.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Image.network(
+                        "https://static.vecteezy.com/system/resources/previews/009/469/630/original/google-logo-isolated-editorial-icon-free-vector.jpg",
+                        height: 60,
+                        width: 60,
+                      ),
+                      Text(
+                        "Sign In with google",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                fontFamily: "Brugty",
+                            fontWeight: FontWeight.w100),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
