@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:quit_for_good/controllers/donation_controller.dart';
 import 'package:quit_for_good/controllers/savings_payment_controller.dart';
 import 'package:quit_for_good/models/Donation_payment_model.dart';
 import 'package:quit_for_good/models/Savings_payment_model.dart';
+import 'package:quit_for_good/utils/Colors.dart';
 import 'package:quit_for_good/utils/String.dart';
 import 'package:quit_for_good/widgets/custom_input_field.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -29,8 +31,18 @@ class TransferAmountSavingsScreen extends StatefulWidget {
 
 class _TransferAmountSavingsScreenState
     extends State<TransferAmountSavingsScreen> {
-  TextEditingController controller = TextEditingController();
+  TextEditingController _controller = TextEditingController();
+   final GlobalKey<FormState> detailskey = GlobalKey<FormState>();
 
+  void clear() {
+    _controller.clear();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
   final _razorpay = Razorpay();
   String getCustomUniqueId() {
     const String pushChars =
@@ -72,13 +84,13 @@ class _TransferAmountSavingsScreenState
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     super.initState();
   }
-
+  double valp = 0.0;
   void _handlePaymentSucess(PaymentSuccessResponse response) async {
     SavingsPaymentController controller = SavingsPaymentController();
     SavingsPaymentModel model = SavingsPaymentModel(
         amttrfs: widget.orderval.toString(),
         time: DateTime.now().toString(),
-        totalamttrs: widget.orderval.toString(),
+        totalamttrs: valp.toString(),
         trsid: getCustomUniqueId());
     await controller.addUserInfo(model);
   }
@@ -92,11 +104,14 @@ class _TransferAmountSavingsScreenState
   }
 
   void payonline() {
+    if(detailskey.currentState!.validate())
+    {
     var name = widget.nameoftitle;
     var phonenumber = widget.phonenumb;
+    final double valq = 10;
     var options = {
       'key': 'rzp_test_FBmQayuj43JfRI',
-      'amount': widget.orderval * 100.0,
+      'amount': valq * 100.0,
       'name': name,
       'description': widget.desc,
       'prefill': {'contact': phonenumber, 'email': 'lci2021014@iiitl.ac.in'}
@@ -106,25 +121,61 @@ class _TransferAmountSavingsScreenState
     } catch (e) {
       debugPrint(e.toString());
     }
+    }
+    else{
+      print("Error");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Image.asset(donatengo),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-            child: CustomInputField(
-                controller: controller,
-                hintText: "Enter the amount you would like to Save"),
-          ),
-          paythrgh("Pay Online", () {
-            payonline();
-          }),
-        ],
+      body: Form(
+        key: detailskey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Image.asset(savings),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+              child: TextFormField(
+                initialValue: widget.orderval.toString(),
+                onSaved: (value) {
+                  valp = double.parse(value ?? "0.0");
+                },
+                validator: (value) {
+                  if(value == null)
+                  {
+                    return "Enter Valid Value";
+                  }
+                  else{
+                    return null;
+                  }
+                },
+                style: TextStyle(fontStyle: FontStyle.italic),
+                decoration: InputDecoration(
+                  prefix: Container(width: 5.h,),
+                  labelText: "Enter the amount you would like to save",
+                  labelStyle: TextStyle(fontStyle: FontStyle.italic, color: kPrimaryColor),
+                  hintText: "Enter the amount",
+                  hintStyle: TextStyle(fontStyle: FontStyle.italic, color: kPrimaryColor),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: kPrimaryColor)
+                  )
+                ),
+              ),
+              // CustomInputField(
+              //     controller: _controller,
+              //     textInputType: TextInputType.number,
+              //     hintText: "Enter the amount you would like to Save"),
+            ),
+            paythrgh("Pay Online", () {
+               clear();
+                    FocusManager.instance.primaryFocus?.unfocus();
+              payonline();
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -132,19 +183,19 @@ class _TransferAmountSavingsScreenState
   Widget paythrgh(String inptxt, Function press) {
     return InkWell(
       onTap: press as void Function(),
-      child: Card(
-        child: SizedBox(
-          width: 150.w,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0).w,
-            child: Text(
-              inptxt,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
+      child: Container(
+         decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: kPrimaryColor),
+        width: 200.w,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0).h,
+          child: Text(
+            inptxt,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: kContrColor,
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),

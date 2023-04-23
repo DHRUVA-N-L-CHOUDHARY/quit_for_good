@@ -43,12 +43,18 @@ class _DonateToSocialCommunitesState extends State<DonateToSocialCommunites> {
       ),
       body: ListView(
         children: [
-          Image.asset(donatengo),
+          SizedBox(
+            height: 20.h,
+          ),
+          Image.asset(dontcom),
+          SizedBox(
+            height: 20.h,
+          ),
           Center(
               child: Text(
             "Donate to NGO or Social Communities",
             style: TextStyle(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
           )),
           SizedBox(
             height: 20.h,

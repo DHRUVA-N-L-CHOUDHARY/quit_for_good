@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quit_for_good/controllers/donation_controller.dart';
 import 'package:quit_for_good/models/Donation_payment_model.dart';
+import 'package:quit_for_good/utils/Colors.dart';
+import 'package:quit_for_good/utils/String.dart';
+import 'package:quit_for_good/widgets/custom_app_bar.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PaymentOption extends StatefulWidget {
@@ -104,13 +107,31 @@ class _PaymentOptionState extends State<PaymentOption> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          paythrgh("Pay Via QR Code", () {}),
-          paythrgh("Pay Online", () {
-            payonline();
-          })
-        ],
+      appBar: CustomAppBar(title: "Quit for Good", act: true,),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+                "\"Every cigarette you don't smoke is a victory. Celebrate every small step!\"",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    fontStyle: FontStyle.italic),
+              ),
+              Image.asset(donatengo,),
+            Column(
+              children: [
+                paythrgh("Pay Via QR Code", () {}),
+            paythrgh("Pay Online", () {
+              payonline();
+            })
+            ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -119,15 +140,17 @@ class _PaymentOptionState extends State<PaymentOption> {
     return InkWell(
       onTap: press as void Function(),
       child: Card(
-        child: SizedBox(
-          width: 150.w,
+        child: Container(
+           decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10), color: kPrimaryColor),
+          width: 200.w,
           child: Padding(
             padding: const EdgeInsets.all(8.0).w,
             child: Text(
               inptxt,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Colors.black,
+                  color: kContrColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),

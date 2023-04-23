@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:quit_for_good/utils/String.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -20,10 +21,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.white,
         ),
       )  : Container(),
-      title: Text(
-        title,
-        style: TextStyle(
-            color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+      title: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0).w,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+              color: Colors.white,
+              ),
+              child: Image.asset(applogo, height: 40.0,width: 40.0,)),
+          ),
+          Text(
+            title,
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
       elevation: 0.0,
     );

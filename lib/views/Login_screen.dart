@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:quit_for_good/views/Navigation_screen.dart';
+import 'package:quit_for_good/utils/String.dart';
 import 'package:quit_for_good/views/homepage/screen/home.dart';
 import 'package:quit_for_good/widgets/custom_app_bar.dart';
 
@@ -62,8 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Center(
-              child: Image.network(
-                  "https://static.vecteezy.com/system/resources/previews/000/579/111/original/vector-logos-of-green-tree-leaf-ecology.jpg",)),
+              child: Image.asset(applogo)),
           GestureDetector(
             onTap: () async {
               bool isSuccess = await loginWithGoogle();

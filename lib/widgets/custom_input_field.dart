@@ -44,6 +44,8 @@ class CustomInputField extends StatelessWidget {
         hintText: hintText,
         hintStyle: const TextStyle(
           fontFamily: "BentonSans",
+          fontSize: 16,
+          fontStyle: FontStyle.italic
         ),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
