@@ -1,8 +1,5 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quit_for_good/controllers/donation_controller.dart';
 import 'package:quit_for_good/models/Donation_payment_model.dart';
@@ -26,7 +23,6 @@ class PaymentOption extends StatefulWidget {
 
 class _PaymentOptionState extends State<PaymentOption> {
   final _razorpay = Razorpay();
-  var order_id ;
   String getCustomUniqueId() {
     const String pushChars =
         '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
@@ -70,15 +66,14 @@ class _PaymentOptionState extends State<PaymentOption> {
 
   void _handlePaymentSucess(PaymentSuccessResponse response) async {
     DonationPaymentController controller = DonationPaymentController();
-    DonationPaymentModel model  = DonationPaymentModel(
-      ngoname: widget.nameoftitle,
-      typeofpayment: "online",
-      amttrfs: widget.orderval.toString(),
-      time: DateTime.now().toString(),
-      totalamttrs: widget.orderval.toString(),
-      trsid: getCustomUniqueId()
-    );
-   await controller.addUserInfo(model);
+    DonationPaymentModel model = DonationPaymentModel(
+        ngoname: widget.nameoftitle,
+        typeofpayment: "online",
+        amttrfs: widget.orderval.toString(),
+        time: DateTime.now().toString(),
+        totalamttrs: widget.orderval.toString(),
+        trsid: getCustomUniqueId());
+    await controller.addUserInfo(model);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -92,11 +87,9 @@ class _PaymentOptionState extends State<PaymentOption> {
   void payonline() {
     var name = widget.nameoftitle;
     var phonenumber = widget.phonenumb;
-    order_id = getCustomUniqueId();
     var options = {
       'key': 'rzp_test_FBmQayuj43JfRI',
       'amount': widget.orderval * 100.0,
-      'order_id': order_id,
       'name': name,
       'description': widget.desc,
       'prefill': {'contact': phonenumber, 'email': 'lci2021014@iiitl.ac.in'}
@@ -115,23 +108,7 @@ class _PaymentOptionState extends State<PaymentOption> {
         children: [
           paythrgh("Pay Via QR Code", () {}),
           paythrgh("Pay Online", () {
-            var name = widget.nameoftitle;
-            var phonenumber = widget.phonenumb;
-            var options = {
-              'key': 'rzp_test_FBmQayuj43JfRI',
-              'amount': widget.orderval * 100.0,
-              'name': name,
-              'description': widget.desc,
-              'prefill': {
-                'contact': phonenumber,
-                'email': 'lci2021014@iiitl.ac.in'
-              }
-            };
-            try  {
-              _razorpay.open(options);
-            } catch (e) {
-              debugPrint(e.toString());
-            }
+            payonline();
           })
         ],
       ),

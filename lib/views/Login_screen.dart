@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:quit_for_good/views/Navigation_screen.dart';
-import 'package:quit_for_good/widgets/components/custom_app_bar.dart';
-
+import 'package:quit_for_good/views/homepage/screen/home.dart';
+import 'package:quit_for_good/widgets/custom_app_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: () async {
               bool isSuccess = await loginWithGoogle();
               if (isSuccess) {
-                Get.offAll(() => NavigationScreen(tabIndex: 0,));
+                Get.offAll(HomeScreen());
               }
             },
             child: Container(

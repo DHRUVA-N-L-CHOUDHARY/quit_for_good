@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:quit_for_good/firebase_options.dart';
+import 'package:quit_for_good/utils/Colors.dart';
 import 'package:quit_for_good/views/Login_screen.dart';
 import 'package:quit_for_good/views/Navigation_screen.dart';
-import 'package:quit_for_good/views/Splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,8 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
        builder: (context, child) =>
-    const GetMaterialApp(
+     GetMaterialApp(
       title: 'Flutter Demo',
+      theme: ThemeData(primaryColor: kPrimaryColor),
       debugShowCheckedModeBanner: false,
       home: Authenticate(),
     ),

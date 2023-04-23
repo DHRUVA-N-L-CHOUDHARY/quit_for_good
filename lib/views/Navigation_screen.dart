@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:quit_for_good/utils/Colors.dart';
 import 'package:quit_for_good/utils/String.dart';
-import 'package:quit_for_good/views/Chat_screen.dart';
 import 'package:quit_for_good/views/Choose_type.dart';
-import 'package:quit_for_good/views/message_screen.dart';
+import 'package:quit_for_good/views/Profile_screen.dart';
+import 'package:quit_for_good/views/homepage/screen/home.dart';
 
 class NavigationScreen extends StatefulWidget {
   late int tabIndex;
@@ -20,7 +20,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
       widget.tabIndex = index;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +28,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
           index: widget.tabIndex,
           children: [
             const ChooseTypeScreen(),
-            MessagesScreen(),
-            const ChooseTypeScreen(),
+            HomeScreen(),
+            const ProfileScreen(),
           ],
         ),
       ),
